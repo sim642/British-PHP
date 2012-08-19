@@ -1,4 +1,5 @@
 <?php
+//Get cli args
 $options = array();
 
 foreach ($argv as $arg){
@@ -6,16 +7,16 @@ foreach ($argv as $arg){
     if ($value && isset($value[1]) && $value[1])
         $options[$value[1]] = isset($value[2]) ? $value[2] : null;
 }
-
+//make sure a file is set in the cli
 if (!isset($options['file'])){
-    die("where iz file?");
+    die("Alfred! where is my file?");
 }
 else {
-    $Code = file_get_contents($options['file']);
-    $OutputFile = str_replace(".b", ".php", $options['file']);
+    $Code = file_get_contents($options['file']); //get the content of the file
+    $OutputFile = str_replace(".b", ".php", $options['file']); //set the output name
 }
 
-
+//Array of the British PHP command as key and the PHP one as the value
 $syntax = array(
     "In Case It Is True That" => "if",
     "And on the possibility that" => "elseif",
@@ -25,8 +26,8 @@ $syntax = array(
     "Is, in fact" => "==",
     "Is not" => "!=",
     "Is now" => "=",
-    "Our coding shall begin at once!" => "/*<?php*/",
-    "And that was it my good fellas!" => "/*?>*/",
+    "Our coding shall begin at once!" => "/*<?php*/", //set as comment so Eval() will work
+    "And that was it my good fellas!" => "/*?>*/",    //see comment above
     "Every Single one of the items in" => "foreach (",
     "Should be Known as" => "as",
     "and should be treated as follow" => ")",
@@ -53,17 +54,18 @@ $syntax = array(
 
     );
 
-
+//loop for the syntax array an replace each british commaned with the php one
 foreach($syntax as $British => $PHP){
   $Code = str_ireplace($British, $PHP, $Code);
 }
+
 echo "Your code output is: \n";
+//run the code
 eval($Code);
-if (isset($options['printerrors']) && $options['printerrors'] == True){
-    echo $Code;
-}
+//remove comment marks from opening and closing php tags
 $Code = str_ireplace("/*<?php*/", "<?php", $Code);
 $Code = str_ireplace("/*?>*/", "?>", $Code);
+//open the new file and write the PHP code into it
 $handle = fopen($OutputFile, 'w') or die("\nCannot write new file:  ".$OutputFile);
 fwrite($handle, $Code);
 fclose($handle);
