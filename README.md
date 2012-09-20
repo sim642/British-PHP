@@ -1,4 +1,4 @@
-British-PHP
+British-PHP!
 ===========
 
 An interpreter for a British dialect of our loved and hated PHP.
