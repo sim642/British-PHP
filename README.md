@@ -7,7 +7,7 @@ Why?
 -------
 Well, why not?
 I first came across the idea when I saw this blog post:
-http://www.addedbytes.com/blog/if--were-british/
+http://www.addedbytes.com/blog/if-php-were-british/
 By Dave Child
 
 And then I Just decided there is nothing to lose in working 30 minutes to write this script...
