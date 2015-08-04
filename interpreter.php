@@ -54,6 +54,12 @@ $syntax = array(
 
     );
 
+function Comparer($First, $Second){
+	return strlen($Second) - strlen($First);
+}
+
+uksort($syntax, "Comparer"); // sorts syntax array in british order
+
 //loop for the syntax array an replace each british commaned with the php one
 foreach($syntax as $British => $PHP){
   $Code = str_ireplace($British, $PHP, $Code);
